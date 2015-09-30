@@ -24,7 +24,7 @@ time_bands <- ctx$get("timelineBands")
 
 # try to plot
 plot.new()
-plot.window(xlim=c(0,1000),ylim=c(0,300))
+plot.window(xlim=c(0,1000),ylim=c(300,0))
 rect(
   xleft = time_bands$start,
   ybottom = time_bands$y,
@@ -42,4 +42,4 @@ ggplot(
     xmax = end,
     ymax = y + dy
   )
-) + geom_rect(fill = "#687a97", colour = "white")
+) + ylim(300,0) + geom_rect(fill = "#687a97", colour = "white")

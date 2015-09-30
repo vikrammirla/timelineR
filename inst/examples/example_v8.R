@@ -29,6 +29,7 @@ rect(
   xleft = time_bands$start,
   ybottom = time_bands$y,
   xright = time_bands$end,
-  ytop = time_bands$y + time_bands$dy
+  ytop = time_bands$y + time_bands$dy,
+  col = "#687a97"
 )
 

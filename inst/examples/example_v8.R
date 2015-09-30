@@ -33,3 +33,13 @@ rect(
   col = "#687a97"
 )
 
+library(ggplot2)
+ggplot(
+  time_bands,
+  aes(
+    xmin = start,
+    ymin = y,
+    xmax = end,
+    ymax = y + dy
+  )
+) + geom_rect(fill = "#687a97", colour = "white")

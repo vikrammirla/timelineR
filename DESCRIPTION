@@ -1,0 +1,12 @@
+Package: timelineR
+Title: Interactive Timelines
+Version: 0.0.1
+Author: Kenton Russell
+Maintainer: Kenton Russell <kent.russell@timelyportfolio.com>
+Description: Create interactive d3.js timelines from R using d3.layout.timeline.
+License: MIT + file LICENSE
+LazyData: true
+URL: https://github.com/timelyportfolio/timelineR
+BugReports: https://github.com/timelyportfolio/timelineR/issues
+Suggests: 
+    testthat

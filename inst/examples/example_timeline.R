@@ -18,13 +18,17 @@ timeline(
 timeline(
   read.csv("http://bl.ocks.org/emeeks/raw/280cb0607c68faf30bb5/wars.csv"),
   colorScale = htmlwidgets::JS(
-'
-function(d){
-  var color = d3.scale.ordinal()
+'d3.scale.ordinal()
     .domain(["European","Native","Colonial","Latin America","Internal"])
-    .range(["#96abb1", "#313746", "#b0909d", "#687a97", "#292014"]);
-  return color(d.sphere);
-}
+    .range(["#96abb1", "#313746", "#b0909d", "#687a97", "#292014"])
 '    
-  )
+  ),
+  color = "sphere"
+)
+
+# same as above except use d3 built-in color scale
+timeline(
+  read.csv("http://bl.ocks.org/emeeks/raw/280cb0607c68faf30bb5/wars.csv"),
+  colorScale = htmlwidgets::JS('d3.scale.category10()'),
+  color = "sphere"
 )

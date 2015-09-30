@@ -15,6 +15,7 @@
 #' @param maxBandHeight maximum band height. Defaults to Infinity (bands will fill the given height in the timeline.size array minus any necessary padding).
 #' @param children children accessor, for use with hierarchical timeline data. Typically children are stored in an array in .children or .values. Set to return null or false to disable hierarchical support. Hierarchical data can be a hierarchical JSON object (like the ubiquitous flare.json dataset) or an array of objects with each having child elements.
 #' @param colorScale function to color the timeline bands
+#' @param color name of key/variable to color by. See \code{\link{colorScale}}
 #' @param width,height a valid \code{CSS} unit for the width and height of the
 #'          htmlwidget container
 #' 
@@ -32,6 +33,7 @@ timeline <- function(
   maxBandHeight = NULL,
   children = NULL,
   colorScale = NULL,
+  color = NULL,
   width = NULL, height = NULL) {
 
   # forward options using x
@@ -46,7 +48,8 @@ timeline <- function(
       maxBandHeight = maxBandHeight,
       children = children
     ),
-    colorScale = colorScale
+    colorScale = colorScale,
+    color = color
   )
 
   # create widget

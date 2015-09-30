@@ -6,7 +6,8 @@
 \usage{
 timeline(data = NULL, dateFormat = NULL, bandStart = NULL,
   bandEnd = NULL, extent = NULL, padding = NULL, maxBandHeight = NULL,
-  children = NULL, colorScale = NULL, width = NULL, height = NULL)
+  children = NULL, colorScale = NULL, color = NULL, width = NULL,
+  height = NULL)
 }
 \arguments{
 \item{data}{\code{data.frame} of data to be plotted}
@@ -26,6 +27,8 @@ timeline(data = NULL, dateFormat = NULL, bandStart = NULL,
 \item{children}{children accessor, for use with hierarchical timeline data. Typically children are stored in an array in .children or .values. Set to return null or false to disable hierarchical support. Hierarchical data can be a hierarchical JSON object (like the ubiquitous flare.json dataset) or an array of objects with each having child elements.}
 
 \item{colorScale}{function to color the timeline bands}
+
+\item{color}{name of key/variable to color by. See \code{\link{colorScale}}}
 
 \item{width,height}{a valid \code{CSS} unit for the width and height of the
          htmlwidget container}
@@ -58,15 +61,19 @@ timeline(
 timeline(
   read.csv("http://bl.ocks.org/emeeks/raw/280cb0607c68faf30bb5/wars.csv"),
   colorScale = htmlwidgets::JS(
-'
-function(d){
-  var color = d3.scale.ordinal()
+'d3.scale.ordinal()
     .domain(["European","Native","Colonial","Latin America","Internal"])
-    .range(["#96abb1", "#313746", "#b0909d", "#687a97", "#292014"]);
-  return color(d.sphere);
-}
+    .range(["#96abb1", "#313746", "#b0909d", "#687a97", "#292014"])
 '    
-  )
+  ),
+  color = "sphere"
+)
+
+# same as above except use d3 built-in color scale
+timeline(
+  read.csv("http://bl.ocks.org/emeeks/raw/280cb0607c68faf30bb5/wars.csv"),
+  colorScale = htmlwidgets::JS('d3.scale.category10()'),
+  color = "sphere"
 )
 }
 

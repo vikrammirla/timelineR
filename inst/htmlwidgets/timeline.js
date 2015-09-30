@@ -51,7 +51,11 @@ HTMLWidgets.widget({
       .attr("y", function (d) {return d.y})
       .attr("height", function (d) {return d.dy})
       .attr("width", function (d) {return d.end - d.start})
-      .style("fill", function(d) {return colorScale(d)})
+      .style("fill", function(d) {
+        return colorScale(
+          x.color === null ? null : d[x.color]
+        )
+      })
       .style("stroke", "black")
   },
 

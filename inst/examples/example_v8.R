@@ -20,4 +20,15 @@ timelineBands = timeline(data);
 '
 )
 # see if it worked
-ctx$get("timelineBands")
+time_bands <- ctx$get("timelineBands")
+
+# try to plot
+plot.new()
+plot.window(xlim=c(0,1000),ylim=c(0,300))
+rect(
+  xleft = time_bands$start,
+  ybottom = time_bands$y,
+  xright = time_bands$end,
+  ytop = time_bands$y + time_bands$dy
+)
+

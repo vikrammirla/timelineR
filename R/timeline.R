@@ -35,7 +35,7 @@ timeline <- function(
   colorScale = NULL,
   color = NULL,
   width = NULL, height = NULL) {
-
+  
   # forward options using x
   x = list(
     data = data,
@@ -49,9 +49,14 @@ timeline <- function(
       children = children
     ),
     colorScale = colorScale,
-    color = color
+    color = color,
+    # should I set this as an argument or use ...
+    #  setting this as NULL makes checking on JavaScript easier
+    #  add_axis is currently the way to add an axis to the plot
+    axes = NULL,
+    tasks = NULL
   )
-
+  
   # create widget
   htmlwidgets::createWidget(
     name = 'timeline',

@@ -26,5 +26,7 @@ License: MIT + file LICENSE
 LazyData: true
 URL: https://github.com/timelyportfolio/timelineR
 BugReports: https://github.com/timelyportfolio/timelineR/issues
+Imports:
+    htmlwidgets
 Suggests: 
     testthat

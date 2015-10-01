@@ -13,7 +13,7 @@ Create interactive d3.js timelines from R using d3.layout.timeline.
 ## Installation
 
 ```r
-devtools::install_github("/timelineR")
+devtools::install_github("timelyportfolio/timelineR")
 ```
 
 ## Usage

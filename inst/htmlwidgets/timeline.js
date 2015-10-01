@@ -90,7 +90,7 @@ HTMLWidgets.widget({
         
         var axis_g = svg.append("g")
            .attr("class","timeline-axis")
-           .attr("transform","translate(0," + height + ")")
+           .attr("transform","translate(0," + ( +height - (axis.tickSize() === 6 ? 0 : axis.tickSize()) ) + ")")
            .call(axis);
            
         // some default styles for our axis

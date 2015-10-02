@@ -75,5 +75,61 @@ timeline(
   colorScale = htmlwidgets::JS('d3.scale.category10()'),
   color = "sphere"
 )
+
+\dontrun{
+  # quick chart with Alabama crop planting and harvesting dates
+  # http://www.nass.usda.gov/Publications/Usual_Planting_and_Harvesting_Dates/uph97.pdf
+  
+  crop_al <- data.frame(
+    crop = c(
+      "Corn, for Grain",
+      "Cotton",
+      #"Hay, Other",
+      "Peanuts",
+      "Sorghum, for Grain",
+      "Sorghum, for Silage",
+      "Soybeans",
+      "Wheat, Winter"
+    ),
+    begin = paste0(
+      c(
+        "March 5",
+        "April 12",
+        #"",
+        "April 16",
+        "April 1",
+        "April 1",
+        "April 30",
+        "October 2"
+      ),
+      ",2015"
+    ),
+    end = c(
+      "November 2, 2015",
+      "December 15, 2015",
+      #"October 15",
+      "November 1, 2015",
+      "December 15, 2015",
+      "December 15, 2015",
+      "December 8, 2015",
+      "July 1, 2016"
+    ),
+    stringsAsFactors = FALSE
+  )
+  
+  crop_al \%>>\%
+    timeline(
+      bandStart = htmlwidgets::JS('function(d){return new Date(d.begin)}'),
+      bandEnd = htmlwidgets::JS('function(d){return new Date(d.end)}'),
+      colorScale = htmlwidgets::JS('d3.scale.category20()'),
+      color = "crop"
+    ) \%>>\%
+    add_axis(
+      tickFormat = htmlwidgets::JS(
+        'd3.time.format("\%b")'
+      )
+    )
+  
+}
 }
 

@@ -1,10 +1,10 @@
 ---
-title: "Quick Introduction to Timeline"
+title: "Quick Introduction to timelineR"
 author: "Kenton Russell"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Quick Introduction to Timeline}
+  %\VignetteIndexEntry{Quick Introduction to timelineR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -40,7 +40,38 @@ t1 <- timeline(
 t1
 ```
 
+### Add an Axis
+
 ```{r}
 add_axis(t1)
 ```
 
+### Customize
+
+```{r}
+# use this example as inspiration
+#   http://jasonheppler.org/projects/war/
+
+library(pipeR)
+
+t1 %>>%
+  add_axis(tickSize = 400) %>>%
+  add_tasks(
+    htmlwidgets::JS(
+'
+function(){
+  var svg = d3.select(this.el).select("svg");
+  svg.selectAll(".timeline-axis > path")
+    .style("fill","none")
+    .style("stroke","none");
+  svg.selectAll(".timeline-axis .tick line")
+    .style("stroke","gray")
+    .attr("stroke-dasharray","5 5");
+  svg.selectAll("rect")
+    .style("stroke","white")
+    .attr("rx",4);
+}
+'
+    )
+  )
+```

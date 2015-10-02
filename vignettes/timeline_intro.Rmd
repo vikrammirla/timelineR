@@ -9,13 +9,19 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+[`timelineR`](https://github.com/timelyportfolio/timelineR) lets us use the new `d3.layout.timeline` from [Elijah Meeks](http://elijahmeeks.com/) to make interactive [`d3.js`](http://d3js.org) swimlane timelines.  If you prefer the more traditional `graphics` or `ggplot2` from `R`, we can also leverage `d3.layout.timeline` using [`V8`](https://github.com/jeroenooms/V8) to produce static plots.
+
 ## Installation
 
 ```{r eval = FALSE}
 devtools::install_github("timelyportfolio/timelineR")
 ```
 
-## Example
+## Examples
+
+I very much appreciate when authors of `R` packages and JavaScript libraries provide helpful examples to demonstrate their fine work and provide a foundation for its use.  This is definitely the case with Elijah Meeks and `d3.layout.timeline`.  Let's start our exploration of `timelineR` by recreating [Examples With Dates](https://gist.github.com/emeeks/280cb0607c68faf30bb5).
+
+### Starting Point
 
 ```{r}
 library(timelineR)
@@ -46,7 +52,7 @@ t1
 add_axis(t1)
 ```
 
-### Customize
+### Customize and Style
 
 ```{r}
 # use this example as inspiration
@@ -75,3 +81,60 @@ function(){
     )
   )
 ```
+
+### Static Plots with ggplot2
+
+In a feat of super-isomorphism, let's use `d3.layout.timeline` to calculate the layout and coordinates for a `ggplot2` chart.
+
+```{r message=FALSE}
+library(ggplot2)
+library(V8)
+
+ctx <- new_context()
+# get d3
+ctx$source(system.file("htmlwidgets/lib/d3/d3.min.js",package="timelineR"))
+# get d3.layout.timeline
+ctx$source(system.file("htmlwidgets/lib/d3.layout.timeline/d3.layout.timeline.js",package="timelineR"))
+# assign the simple example data to data
+ctx$assign("data", read.csv("http://bl.ocks.org/emeeks/raw/d24171dac80dd535521b/int_bands.csv"))
+# do the layout and get it in R
+invisible(ctx$eval(
+'
+var timeline = d3.layout.timeline()
+  .size([1000,300])
+  .bandStart(function (d) {return d.s})
+  .bandEnd(function (d) {return d.e})
+  .dateFormat(function (d) {return parseInt(d)})
+
+timelineBands = timeline(data);
+'
+))
+# see if it worked
+time_bands <- ctx$get("timelineBands")
+
+library(ggplot2)
+ggplot(
+  time_bands,
+  aes(
+    xmin = start,
+    ymin = y,
+    xmax = end,
+    ymax = y + dy
+  )
+) + ylim(300,0) + geom_rect(fill = "#687a97", colour = "white")
+
+```
+
+## Thanks
+
+### Elijah Meeks
+
+Elijah has made significant contribiutions to the `d3.js` community.  I highly recommend his book [D3.js in Action](https://www.manning.com/books/d3-js-in-action).
+
+### Mike Bostock
+
+Mike Bostock has provided us an unbelievable platform to do amazing things with `d3.js`.
+
+### Ramnath Vaidyanathan and RStudio
+
+Ramnath Vaidyanathan and the very skilled, generous folks at RStudio have made it easy with [`htmlwidgets`](http://htmlwidgets.org) to seamlessly integrate interactive JavaScript/HTML/CSS in `R`.

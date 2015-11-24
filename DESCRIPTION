@@ -13,7 +13,7 @@ Authors@R: c(
         , comment = "d3.layout.timeline plugin in htmlwidgets/lib, https://github.com/emeeks/d3.layout.timeline"
       ),
       person(
-        "Kent", "Russell"
+        "Pavan, "Mirlaxi testl"
         , role = c("aut", "cre")
         , comment = "R interface"
         , email = "kent.russell@timelyportfolio.com"
